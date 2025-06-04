@@ -11,14 +11,13 @@ import org.springframework.security.web.access.expression.WebExpressionAuthoriza
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http, TimeChecker timeChecker) throws Exception {
         http.httpBasic(Customizer.withDefaults());
         http.authorizeHttpRequests(registry ->
                 registry.anyRequest()
-                        // allow only after 12:00 pm
                         .access(new WebExpressionAuthorizationManager("""
-                                T(java.time.LocalTime).now().isAfter(T(java.time.LocalTime).of(12, 0))
-                                """))
+                                %s
+                                """.formatted(timeChecker.isAfter12Pm() ? "permitAll()" : "denyAll()")))
         );
         return http.build();
     }
