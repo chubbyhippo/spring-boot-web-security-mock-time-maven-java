@@ -6,7 +6,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
-import org.springframework.stereotype.Component;
 
 @Configuration
 public class SecurityConfig {
@@ -18,12 +17,13 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        var isAfter12Pm = timeChecker.isAfter12Pm();
         http.httpBasic(Customizer.withDefaults());
         http.authorizeHttpRequests(registry ->
                 registry.anyRequest()
                         .access(new WebExpressionAuthorizationManager("""
                                 %s
-                                """.formatted(timeChecker.isAfter12Pm() ? "permitAll()" : "denyAll()")))
+                                """.formatted(isAfter12Pm ? "permitAll()" : "denyAll()")))
         );
         return http.build();
     }
