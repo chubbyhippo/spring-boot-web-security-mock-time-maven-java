@@ -20,7 +20,7 @@ class DemoApplicationTests {
     private MockMvcTester mockMvcTester;
 
     @Test
-    @DisplayName("should return hello")
+    @DisplayName("should return correct response based on time")
     @WithMockUser
     void shouldReturnHelloOr403() {
         if (LocalTime.now().isAfter(LocalTime.of(12, 0))){
@@ -36,7 +36,6 @@ class DemoApplicationTests {
                     .assertThat()
                     .hasStatus4xxClientError();
         }
-
     }
 
 }
