@@ -37,5 +37,4 @@ class DemoApplicationTests {
                     .hasStatus4xxClientError();
         }
     }
-
 }
