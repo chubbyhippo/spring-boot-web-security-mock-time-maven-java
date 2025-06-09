@@ -1,5 +1,6 @@
 package io.github.chubbyhippo.demo;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -9,21 +10,20 @@ import org.springframework.security.web.access.expression.WebExpressionAuthoriza
 
 @Configuration
 public class SecurityConfig {
-    private final TimeChecker timeChecker;
 
-    public SecurityConfig(TimeChecker timeChecker) {
-        this.timeChecker = timeChecker;
+    private String expression;
+
+    @Value("${expression}")
+    public void setExpression(String expression) {
+        this.expression = expression;
     }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        var isAfter12Pm = timeChecker.isAfter12Pm();
         http.httpBasic(Customizer.withDefaults());
         http.authorizeHttpRequests(registry ->
                 registry.anyRequest()
-                        .access(new WebExpressionAuthorizationManager("""
-                                %s
-                                """.formatted(isAfter12Pm ? "permitAll()" : "denyAll()")))
+                        .access(new WebExpressionAuthorizationManager(expression))
         );
         return http.build();
     }
