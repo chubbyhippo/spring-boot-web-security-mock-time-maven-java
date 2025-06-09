@@ -11,12 +11,8 @@ import org.springframework.security.web.access.expression.WebExpressionAuthoriza
 @Configuration
 public class SecurityConfig {
 
-    private String expression;
-
     @Value("${expression}")
-    public void setExpression(String expression) {
-        this.expression = expression;
-    }
+    private String expression;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
