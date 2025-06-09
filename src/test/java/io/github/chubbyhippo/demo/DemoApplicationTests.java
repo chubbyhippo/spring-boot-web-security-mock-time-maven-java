@@ -9,8 +9,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 
-import java.time.LocalTime;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @TestPropertySource(properties = "expression='true'")
@@ -35,7 +33,7 @@ class WhenExpressionIsTrueTest {
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@TestPropertySource(properties = "expression='true'")
+@TestPropertySource(properties = "expression='false'")
 class WhenExpressionIsFalseTest {
 
     @Autowired
@@ -45,11 +43,9 @@ class WhenExpressionIsFalseTest {
     @DisplayName("should return 403")
     @WithMockUser
     void shouldReturn403() {
-        if (!LocalTime.now().isAfter(LocalTime.of(12, 0))) {
-            mockMvcTester.get()
-                    .uri("/hello")
-                    .assertThat()
-                    .hasStatus4xxClientError();
-        }
+        mockMvcTester.get()
+                .uri("/hello")
+                .assertThat()
+                .hasStatus4xxClientError();
     }
 }
