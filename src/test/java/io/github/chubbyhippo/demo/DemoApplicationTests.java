@@ -20,7 +20,7 @@ class DemoApplicationTests {
     @Test
     @DisplayName("should return hello")
     @WithMockUser
-    void shouldReturnHelloOr403() {
+    void shouldReturnHello() {
         if (LocalTime.now().isAfter(LocalTime.of(12, 0))) {
             mockMvcTester.get()
                     .uri("/hello")
