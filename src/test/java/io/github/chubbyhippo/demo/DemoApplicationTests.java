@@ -2,7 +2,6 @@ package io.github.chubbyhippo.demo;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +12,8 @@ import org.springframework.test.web.servlet.assertj.MockMvcTester;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+
+import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -27,8 +28,8 @@ class WhenExpressionIsTrueTest {
         var instant = Instant.parse("2025-07-23T" + time + "Z");
         var zone = ZoneId.of("UTC");
         var fixedClock = Clock.fixed(instant, zone);
-        Mockito.when(clock.instant()).thenReturn(fixedClock.instant());
-        Mockito.when(clock.getZone()).thenReturn(fixedClock.getZone());
+        when(clock.instant()).thenReturn(fixedClock.instant());
+        when(clock.getZone()).thenReturn(fixedClock.getZone());
     }
 
     @Test
