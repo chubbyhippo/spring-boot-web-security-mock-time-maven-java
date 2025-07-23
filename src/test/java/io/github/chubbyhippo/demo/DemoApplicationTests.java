@@ -46,8 +46,8 @@ class WhenExpressionIsTrueTest {
     }
 
     @Test
-    @DisplayName("test return 4xx before midday")
-    void testReturn4xxBeforeMidday() {
+    @DisplayName("should return 4xx before midday")
+    void shouldReturn4XxBeforeMidday() {
         setClock("11:00:00.00");
         mockMvcTester.get()
                 .uri("/hello")
