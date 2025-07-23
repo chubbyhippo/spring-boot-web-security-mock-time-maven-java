@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-class WhenExpressionIsTrueTest {
+class DemoApplicationTests {
 
     @Autowired
     private MockMvcTester mockMvcTester;
