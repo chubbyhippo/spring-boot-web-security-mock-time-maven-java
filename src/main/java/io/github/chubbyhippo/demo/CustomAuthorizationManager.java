@@ -19,7 +19,7 @@ public class CustomAuthorizationManager implements AuthorizationManager<RequestA
 
     @Override
     public AuthorizationDecision check(Supplier<Authentication> authentication, RequestAuthorizationContext object) {
-        boolean isAfterMidday = LocalTime.now().isAfter(LocalTime.of(12, 0));
+        boolean isAfterMidday = LocalTime.now(clock).isAfter(LocalTime.of(12, 0));
         return new AuthorizationDecision(isAfterMidday);
     }
 }
