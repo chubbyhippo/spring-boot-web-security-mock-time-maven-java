@@ -44,4 +44,14 @@ class WhenExpressionIsTrueTest {
                 .bodyText()
                 .isEqualTo("Hello!");
     }
+
+    @Test
+    @DisplayName("test return 4xx before midday")
+    void testReturn4xxBeforeMidday() {
+        setClock("11:00:00.00");
+        mockMvcTester.get()
+                .uri("/hello")
+                .assertThat()
+                .hasStatus4xxClientError();
+    }
 }
