@@ -9,13 +9,7 @@ import java.time.Clock;
 import java.time.LocalTime;
 import java.util.function.Supplier;
 
-public class CustomAuthorizationManager implements AuthorizationManager<RequestAuthorizationContext> {
-
-    private final Clock clock;
-
-    public CustomAuthorizationManager(Clock clock) {
-        this.clock = clock;
-    }
+public record CustomAuthorizationManager(Clock clock) implements AuthorizationManager<RequestAuthorizationContext> {
 
     @Override
     public AuthorizationDecision check(Supplier<Authentication> authentication, RequestAuthorizationContext object) {
