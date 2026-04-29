@@ -18,7 +18,9 @@ public record CustomAuthorizationManager(Clock clock) implements AuthorizationMa
             @NonNull Supplier<? extends Authentication> authentication,
             RequestAuthorizationContext object
     ) {
-        boolean isAfterMidday = LocalTime.now(clock).isAfter(LocalTime.of(12, 0));
+        boolean isAfterMidday = LocalTime
+                .now(clock)
+                .isAfter(LocalTime.of(12, 0));
         return new AuthorizationDecision(isAfterMidday);
     }
 
